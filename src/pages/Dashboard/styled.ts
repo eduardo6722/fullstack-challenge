@@ -54,6 +54,10 @@ export const Form = styled.form`
       margin: 0;
     }
   }
+
+  @media (max-width: 960px) {
+    flex-direction: column;
+  }
 `;
 
 export const DataContainer = styled.div`
@@ -111,6 +115,10 @@ export const TableContainer = styled.section`
 
       svg {
         cursor: pointer;
+
+        & + svg {
+          margin-left: 6px;
+        }
       }
     }
 
@@ -120,6 +128,10 @@ export const TableContainer = styled.section`
       &:hover {
         background: ${shade(0.1, '#00b8e2')};
         font-weight: bold;
+
+        svg {
+          color: #fff !important;
+        }
       }
     }
   }

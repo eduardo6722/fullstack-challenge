@@ -1,8 +1,9 @@
 import React from 'react';
-import * as Yup from 'yup';
+import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
-import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { PieChart } from 'react-minimal-pie-chart';
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useChartContext } from 'context/chart/ChartContext';
 
@@ -21,15 +22,24 @@ import {
   ChartLegendItem,
 } from './styled';
 
-interface Map {
-  [key: string]: string;
-}
+const schema = yup.object().shape({
+  firstName: yup.string().required('Fill with your first name'),
+  lastName: yup.string().required('Fill with your lastname'),
+  participation: yup
+    .number()
+    .min(1, 'Participation must be over 1%')
+    .max(100, 'Participation must be under 100%'),
+});
 
 const Dashboard: React.FC = () => {
   const [isEditing, setIsEditing] = React.useState(false);
   const [editingId, setEditingId] = React.useState(0);
   const [editingColor, setEditingColor] = React.useState('');
-  const { register, handleSubmit, setValue, reset } = useForm<ChartInfoData>();
+  const { register, handleSubmit, setValue, reset, errors } = useForm<
+    ChartInfoData
+  >({
+    resolver: yupResolver(schema),
+  });
 
   const {
     data,
@@ -102,18 +112,21 @@ const Dashboard: React.FC = () => {
           name="firstName"
           register={register({ required: true })}
           placeholder="First name"
+          error={!!errors.firstName?.message}
         />
         <Input
           type="text"
           name="lastName"
           register={register({ required: true })}
           placeholder="Last name"
+          error={!!errors.lastName?.message}
         />
         <Input
           type="number"
           name="participation"
           register={register({ required: true })}
           placeholder="Participation"
+          error={!!errors.participation?.message}
         />
         <Button type="submit">{isEditing ? 'SAVE' : 'SEND'}</Button>
       </Form>
@@ -145,11 +158,13 @@ const Dashboard: React.FC = () => {
                       <td>
                         <FaEdit
                           size={20}
+                          color="#00b8e2"
                           onClick={() => editItem(id as number)}
                         />
                         <FaTrashAlt
-                          onClick={() => handleRemoveChartItem(id as number)}
                           size={20}
+                          color="#ed2945"
+                          onClick={() => handleRemoveChartItem(id as number)}
                         />
                       </td>
                     </tr>

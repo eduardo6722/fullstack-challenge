@@ -1,8 +1,24 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
+interface ContainerProps {
+  error?: boolean;
+}
+
+export const Container = styled.div<ContainerProps>`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 280px;
+
+  @media (max-width: 768px) {
+    margin: 12px !important;
+  }
+
+  ${(props) =>
+    props.error &&
+    css`
+      border: 2px solid #ed2945;
+    `}
 
   input {
     width: 100%;
@@ -24,9 +40,5 @@ export const Container = styled.div`
     &[type='number'] {
       -moz-appearance: textfield;
     }
-  }
-
-  @media (max-width: 768px) {
-    padding: 12px;
   }
 `;

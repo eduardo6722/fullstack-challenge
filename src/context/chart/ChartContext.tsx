@@ -1,7 +1,9 @@
-import { ChartInfoData } from 'interfaces';
+/* eslint-disable no-param-reassign */
 import React from 'react';
+import { toast } from 'react-toastify';
+
+import { ChartInfoData } from 'interfaces';
 import randomColor from 'utils/randomColor';
-import { number } from 'yup';
 
 interface ChartContextData {
   data: ChartInfoData[];
@@ -17,19 +19,34 @@ export const ChartContext = React.createContext<ChartContextData>(
 export const ChartProvider: React.FC = ({ children }) => {
   const [data, setData] = React.useState<ChartInfoData[]>([]);
 
+  const isParticipationValid = React.useCallback(
+    (list: ChartInfoData[], participation: number) =>
+      list?.reduce((acc, curr) => {
+        acc += Number(curr.participation);
+        return acc;
+      }, 0) +
+        Number(participation) >
+      100,
+    []
+  );
+
   const handleAddChartData = React.useCallback(
     ({ participation, ...others }: ChartInfoData) => {
-      setData((prev) => [
-        ...prev,
-        {
-          ...others,
-          id: Math.floor(Math.random() * (10000 - 1)),
-          color: randomColor(),
-          participation: Number(participation),
-        },
-      ]);
+      if (isParticipationValid(data, Number(participation))) {
+        toast.error('The participations amount cannot be over 100%');
+      } else {
+        setData((prev) => [
+          ...prev,
+          {
+            ...others,
+            id: Math.floor(Math.random() * (10000 - 1)),
+            color: randomColor(),
+            participation: Number(participation),
+          },
+        ]);
+      }
     },
-    []
+    [isParticipationValid, data]
   );
 
   const handleRemoveChartItem = React.useCallback(
@@ -39,13 +56,22 @@ export const ChartProvider: React.FC = ({ children }) => {
 
   const handleEditChartItem = React.useCallback(
     (chartInfoData: ChartInfoData) => {
-      setData((prev) => {
-        const newData = prev.filter((item) => item.id !== chartInfoData.id);
-        newData.push(chartInfoData);
-        return newData;
-      });
+      if (
+        isParticipationValid(
+          data.filter((item) => item.id !== chartInfoData.id),
+          Number(chartInfoData.participation)
+        )
+      ) {
+        toast.error('The participations amount cannot be over 100%');
+      } else {
+        setData((prev) => {
+          const newData = prev.filter((item) => item.id !== chartInfoData.id);
+          newData.push(chartInfoData);
+          return newData;
+        });
+      }
     },
-    []
+    [isParticipationValid, data]
   );
 
   return (
