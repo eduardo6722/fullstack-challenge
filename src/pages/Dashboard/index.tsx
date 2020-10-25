@@ -2,8 +2,8 @@ import React from 'react';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { PieChart } from 'react-minimal-pie-chart';
-import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { FaEdit, FaTrashAlt, FaPowerOff } from 'react-icons/fa';
 
 import { useChartContext } from 'context/chart/ChartContext';
 
@@ -24,7 +24,7 @@ import {
 
 const schema = yup.object().shape({
   firstName: yup.string().required('Fill with your first name'),
-  lastName: yup.string().required('Fill with your lastname'),
+  lastName: yup.string().required('Fill with your last name'),
   participation: yup
     .number()
     .min(1, 'Participation must be over 1%')
@@ -32,8 +32,8 @@ const schema = yup.object().shape({
 });
 
 const Dashboard: React.FC = () => {
-  const [isEditing, setIsEditing] = React.useState(false);
   const [editingId, setEditingId] = React.useState(0);
+  const [isEditing, setIsEditing] = React.useState(false);
   const [editingColor, setEditingColor] = React.useState('');
   const { register, handleSubmit, setValue, reset, errors } = useForm<
     ChartInfoData
@@ -43,10 +43,15 @@ const Dashboard: React.FC = () => {
 
   const {
     data,
+    getData,
     handleAddChartData,
     handleEditChartItem,
     handleRemoveChartItem,
   } = useChartContext();
+
+  React.useEffect(() => {
+    getData();
+  }, [getData]);
 
   const onSubmit = React.useCallback(
     (values: any) => {
@@ -194,6 +199,12 @@ const Dashboard: React.FC = () => {
           <h1>No data yet</h1>
         )}
       </DataContainer>
+      <div className="logout">
+        <Button>
+          <FaPowerOff size={20} />
+          <span>LOGOUT</span>
+        </Button>
+      </div>
     </Container>
   );
 };

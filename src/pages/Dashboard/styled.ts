@@ -30,6 +30,22 @@ export const Container = styled.div`
       font-size: 18px;
     }
   }
+
+  .logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 120px;
+
+    svg {
+      margin-right: 12px;
+    }
+
+    button {
+      border: none !important;
+    }
+  }
 `;
 
 export const Form = styled.form`

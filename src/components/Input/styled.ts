@@ -9,6 +9,7 @@ export const Container = styled.div<ContainerProps>`
   flex-direction: column;
   width: 100%;
   max-width: 280px;
+  border-radius: 6px;
 
   @media (max-width: 768px) {
     margin: 12px !important;
