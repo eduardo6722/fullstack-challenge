@@ -10,6 +10,7 @@ import { useChartContext } from 'context/chart/ChartContext';
 import Input from 'components/Input';
 import Button from 'components/Button';
 
+import { useAuth } from 'context/auth/AuthContext';
 import { ChartData, ChartInfoData } from 'interfaces';
 
 import {
@@ -41,6 +42,8 @@ const Dashboard: React.FC = () => {
     resolver: yupResolver(schema),
   });
 
+  const { signOut } = useAuth();
+
   const {
     data,
     getData,
@@ -54,7 +57,7 @@ const Dashboard: React.FC = () => {
   }, [getData]);
 
   const onSubmit = React.useCallback(
-    (values: any) => {
+    (values: ChartInfoData) => {
       if (isEditing) {
         handleEditChartItem({ id: editingId, color: editingColor, ...values });
         setIsEditing(false);
@@ -200,7 +203,7 @@ const Dashboard: React.FC = () => {
         )}
       </DataContainer>
       <div className="logout">
-        <Button>
+        <Button onClick={signOut}>
           <FaPowerOff size={20} />
           <span>LOGOUT</span>
         </Button>
