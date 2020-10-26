@@ -29,6 +29,10 @@ export const Form = styled.form`
     & + div {
       margin-top: 12px;
     }
+
+    @media (max-width: 768px) {
+      margin: 6px 0 !important;
+    }
   }
 
   a {
