@@ -1,0 +1,12 @@
+query GetCars($model: String, $year: Int) {
+  cars(model: $model, year: $year) {
+    id
+    make
+    model
+    year
+    color
+    mobile
+    tablet
+    desktop
+  }
+}
