@@ -14,6 +14,7 @@ const config: Config = {
   },
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
+    "\\.graphql$": "<rootDir>/src/test/graphqlMock.ts",
     "\\.(css|less|scss)$": "<rootDir>/src/test/styleMock.ts",
     "\\.(png|jpe?g|gif|svg|webp)$": "<rootDir>/src/test/fileMock.ts",
   },
