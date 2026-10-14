@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateCar } from "../hooks/use-create-car";
 import { createCarSchema } from "../schemas/create-car.schema";
 import z from "zod";
-import { Box, Button, Card, Typography } from "@mui/material";
+import { Box, Button, Card } from "@mui/material";
 import Select from "@/components/ui/select";
 import { fillYears } from "../utils/fill-years";
 import Error from "@/components/ui/error";
@@ -86,25 +86,21 @@ export default function CreateCarForm({ onCreate }: CreateCarForm) {
   return (
     <Card
       sx={{
-        padding: "22px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
+        p: { xs: 2, sm: 3 },
       }}
     >
-      <Typography typography="h6" mb={3}>
-        Add a new car
-      </Typography>
       <Box
         component="form"
         onSubmit={handleSubmit(onSubmit)}
         sx={{
-          display: "flex",
-          flexDirection: "column",
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "minmax(0, 1fr)",
+            sm: "repeat(2, minmax(0, 1fr))",
+          },
           width: "100%",
-          maxWidth: "sm",
-          gap: "22px",
+          gap: 2,
+          "& > :nth-child(n + 5)": { gridColumn: "1 / -1" },
         }}
       >
         <Select
@@ -171,7 +167,12 @@ export default function CreateCarForm({ onCreate }: CreateCarForm) {
           }}
         />
         <Error message={error?.message || error?.cause?.message} />
-        <Button variant="contained" type="submit" loading={loading}>
+        <Button
+          variant="contained"
+          type="submit"
+          loading={loading}
+          sx={{ justifySelf: "end", minWidth: 96, mt: 1 }}
+        >
           Save
         </Button>
       </Box>

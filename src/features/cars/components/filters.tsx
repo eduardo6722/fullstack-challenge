@@ -28,7 +28,7 @@ export default function Filters({ setFilters }: FiltersProps) {
         handleChange={(value) => handleSetFilters("model", value)}
       />
       <Select
-        label="year"
+        label="Year"
         variant="outlined"
         values={fillYears()}
         defaultValue="All"

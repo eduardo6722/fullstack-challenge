@@ -5,19 +5,22 @@ type LayoutProps = {
   children: ReactNode;
 } & ContainerProps;
 
-export default function Layout({ children, ...rest }: LayoutProps) {
+export default function Layout({ children, sx, ...rest }: LayoutProps) {
   return (
     <Container
       maxWidth="lg"
-      sx={{
-        mx: "auto",
-        padding: "20px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "22px",
-        ...rest.sx,
-      }}
       {...rest}
+      sx={[
+        {
+          mx: "auto",
+          px: { xs: 2, sm: 3 },
+          py: { xs: 3, sm: 4 },
+          display: "flex",
+          flexDirection: "column",
+          gap: 3,
+        },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
     >
       {children}
     </Container>

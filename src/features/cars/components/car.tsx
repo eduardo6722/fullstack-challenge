@@ -35,6 +35,7 @@ export default function Car({
           sx={{
             width: "100%",
             height: "auto",
+            display: "block",
           }}
         />
       </CardMedia>

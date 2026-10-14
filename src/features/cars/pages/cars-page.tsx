@@ -3,7 +3,7 @@ import CarsList from "../components/cars-list";
 import { useGetCars } from "../hooks/use-get-cars";
 import Filters from "../components/filters";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useEffect } from "react";
 
 export default function CarsPage() {
@@ -30,13 +30,21 @@ export default function CarsPage() {
 
   return (
     <Layout>
+      <Box>
+        <Typography component="h1" variant="h4" sx={{ mb: 1 }}>
+          Cars
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Browse your cars, filter by model or year, and add a new car.
+        </Typography>
+      </Box>
       <Filters setFilters={setFilters} />
       <Button
         onClick={() => navigate("/cars/new")}
         variant="contained"
         color="primary"
         sx={{
-          maxWidth: "220px",
+          alignSelf: "flex-start",
         }}
       >
         + Create a new car

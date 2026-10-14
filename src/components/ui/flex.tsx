@@ -2,18 +2,20 @@ import { Box, BoxProps } from "@mui/material";
 
 type FlexProps = BoxProps;
 
-export default function Flex({ children, ...rest }: FlexProps) {
+export default function Flex({ children, sx, ...rest }: FlexProps) {
   return (
     <Box
-      sx={{
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        gap: "22px",
-        flexWrap: "wrap",
-        ...rest.sx,
-      }}
       {...rest}
+      sx={[
+        {
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          gap: 2,
+          flexWrap: "wrap",
+        },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
     >
       {children}
     </Box>

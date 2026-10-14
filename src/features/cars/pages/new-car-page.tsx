@@ -1,6 +1,7 @@
 import Layout from "@/components/ui/layout";
 import CreateCarForm from "../components/create-car-form";
-import { Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 
 export default function NewCarPage() {
@@ -12,12 +13,26 @@ export default function NewCarPage() {
 
   return (
     <Layout
+      maxWidth="sm"
       sx={{
         minHeight: "100vh",
-        padding: "22px",
       }}
     >
-      <Button onClick={() => goHome()}>Back to list</Button>
+      <Button
+        startIcon={<ArrowBackIcon />}
+        sx={{ alignSelf: "flex-start" }}
+        onClick={() => goHome()}
+      >
+        Back to list
+      </Button>
+      <Box>
+        <Typography component="h1" variant="h4" sx={{ mb: 1 }}>
+          Add a new car
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Enter the car details and select an image for each screen size.
+        </Typography>
+      </Box>
       <CreateCarForm onCreate={() => goHome(true)} />
     </Layout>
   );

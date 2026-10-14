@@ -25,8 +25,9 @@ export default function Search({
   };
 
   return (
-    <FormControl variant={variant} sx={{ width: "100%" }}>
+    <FormControl variant={variant} sx={{ flex: "2 1 240px", minWidth: 0 }}>
       <TextField
+        variant={variant}
         onChange={onChange}
         sx={{
           background: "#fff",
@@ -36,8 +37,8 @@ export default function Search({
           input: {
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton>
-                  <SearchIcon />
+                <IconButton size="small" aria-label="Search">
+                  <SearchIcon fontSize="small" />
                 </IconButton>
               </InputAdornment>
             ),
