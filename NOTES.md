@@ -1,25 +1,35 @@
 # Notes
 
-Fill this in as you go — it carries as much weight in review as the code.
+Fill this in as you go -- it carries as much weight in review as the code.
 Keep it short; bullets are fine.
 
 ## What I completed
 
-<!-- Required items done, and anything from the optional list. -->
+- List, create, search, year filter, sort
+- Images via `<picture>` for the three breakpoints
+- Filters go to the API (`model` / `year`). Sort is client-side -- schema has no sort field
+- Form is RHF + zod. Makes/models are a hardcoded Audi list so you can't submit blanks from the UI
+- Tests for `useGetCars`, `useCreateCar`, and the shared Select/Error bits
 
 ## What I left out, and why
 
-<!-- Scope you consciously cut. Naming a trade-off reads better than silence. -->
+- Empty/error UI on the list. Loading has a skeleton, the rest is a bit ugly
+- Car detail page. Ran out of time
+- Debounce, `useCarFilters`. Filters just live in `useGetCars`
 
 ## Decisions and trade-offs
 
-<!-- Structure, state management, where filtering happens, what you tested and
-     what you didn't, any library you added and why. -->
+- Used the `features/cars` layout from the readme
+- Queries are `.graphql` files, not `gql` strings
+- Named the hook `useGetCars` not `useCars`. Split create into its own hook
+- After create I bounce to `/?refresh=true` and refetch. Not proud of it, was the fastest path
+- Didn't change `src/mocks/`
+- Hook tests mock Apollo
 
 ## If I had another day
 
-<!-- What you would do next, in priority order. -->
+Empty state, proper error, cache update after create, a real integration test for the list/form, then maybe a detail page.
 
 ## Anything you should know to run it
 
-<!-- Deviations from `npm install && npm run dev`, if any. -->
+`npm install && npm run dev`.
