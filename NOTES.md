@@ -1,8 +1,5 @@
 # Notes
 
-Fill this in as you go -- it carries as much weight in review as the code.
-Keep it short; bullets are fine.
-
 ## What I completed
 
 - List, create, search, year filter, sort
@@ -19,16 +16,16 @@ Keep it short; bullets are fine.
 
 ## Decisions and trade-offs
 
+- Very simple unit tests given the time I had
 - Used the `features/cars` layout from the readme
 - Queries are `.graphql` files, not `gql` strings
 - Named the hook `useGetCars` not `useCars`. Split create into its own hook
-- After create I bounce to `/?refresh=true` and refetch. Not proud of it, was the fastest path
-- Didn't change `src/mocks/`
-- Hook tests mock Apollo
+- After create I push to `/?refresh=true` and refetch. Not proud of it, was the fastest path
+- Didn't touch the CI config
 
 ## If I had another day
 
-Empty state, proper error, cache update after create, a real integration test for the list/form, then maybe a detail page.
+Empty state, proper error, cache update after create, a real integration test for the list/form, then maybe a detail page, and more unit tests.
 
 ## Anything you should know to run it
 
